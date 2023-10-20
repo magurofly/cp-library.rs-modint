@@ -143,8 +143,8 @@ std::ops::Div<Output = T>
         let mut t = (x, self.one());
         while t.0 != self.zero() {
             let u = s.0.clone() / t.0.clone();
-            s.0 = self.sub(s.0, self.mul(t.0.clone(), u.clone()));
-            s.1 = self.sub(s.1, self.mul(t.1.clone(), u));
+            s.0 = s.0 + -t.0.clone() * u.clone();
+            s.1 = s.1 + -t.1.clone() * u.clone();
             std::mem::swap(&mut s, &mut t);
         }
         if s.1 < self.zero() {
