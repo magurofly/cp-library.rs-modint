@@ -95,6 +95,13 @@ define_binary_operation!(Sub, sub, SubAssign, sub_assign);
 define_binary_operation!(Mul, mul, MulAssign, mul_assign);
 define_binary_operation!(Div, div, DivAssign, div_assign);
 
+impl<T, M: Modulus<T>> Neg for ModInt<T, M> {
+    type Output = Self;
+    fn neg(self) -> Self::Output {
+        Self::raw(self.modulus.neg(self.value), self.modulus)
+    }
+}
+
 impl<T: std::fmt::Display, M> std::fmt::Display for ModInt<T, M> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         self.value.fmt(f)
